@@ -1,0 +1,92 @@
+<html>
+    <meta charset="utf-8">
+    	<script src="jquery.js"></script>
+        <script>
+            var somaValor = 0;
+            var somaQtd = 0;
+            var numeroLinha = 0;
+            function add(){
+                
+                    numeroLinha++;
+                
+                    var cod     = $('#codigo').val();
+                    var valor   =parseFloat( $('#valor').val() );
+                    var qtd     = parseInt($('#qtd').val());
+                    
+                    //SOMA DOS VALORES
+                    somaValor = somaValor+ valor;
+                    somaQtd = somaQtd+ qtd;
+                  
+                    var idlinha = "linha"+numeroLinha;
+                    
+                    //ADICIONA LINHA COM BOTAO
+                    $('#tbProdutos tr:last').after("<tr id='"+idlinha+"' ><td> "+ cod+ " </td> <td> "+  valor+ " </td>  <td> "+ qtd+"</td><td> <button onclick='remover("+  valor+  ","+ qtd+ ", \""+ idlinha+ "\" )'> -  </button> </tr>");
+                
+                    atualizarCalculoTela ();
+            }
+            
+            function atualizarCalculoTela(){
+                 //ATUALIZAÇÃO NA TELA
+                    $('#somaValor').text(somaValor);
+                    $('#somaQtd').text(somaQtd);
+            }
+            
+            function remover(valor,qtd, id){
+                
+                    //SUBTRAÇAO DOS VALORES
+
+                    somaValor = somaValor- valor;
+                    somaQtd = somaQtd- qtd;
+
+                    //REMOVER LINHA  
+                    $('#'+id).remove();
+
+                    atualizarCalculoTela ();
+
+                
+            }
+           
+           
+
+        
+        </script>
+    <body>
+    
+        <div>   
+            Data:
+            <input type="date" id="data">
+            Nome:
+            <input type="text" id="nome">
+            <br>   <br>
+            
+            
+            
+            Código:
+            <input type="text" id="codigo">
+            Valor:
+             <input type="text" id="valor">
+            
+            Qtd:
+             <input type="text" id="qtd">
+            <button onclick="add()"> + </button>
+        </div>
+    
+        <table id="tbProdutos">
+        
+            <tr>
+                <td> codigo </td>
+                 <td>  valor </td>
+                 <td>  qtd </td>
+                
+            </tr>
+        </table>
+        
+        <br>
+        <label> Soma: <divd style='display:inline-block' id="somaValor"> </div> </label>
+        <label> Qtd:  <div style='display:inline-block'  id="somaQtd" > </div> </label>
+    
+        
+    </body>
+    
+    
+</html>
